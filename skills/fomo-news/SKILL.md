@@ -2,7 +2,7 @@
 name: fomo-news
 description: "Real-time news aggregation skill that fetches trending GitHub repos, social posts from key tech/AI figures, and breaking news from major outlets. Supports categories: GitHub, Social, Tech, AI, Economics, Politics. Displays formatted summaries with links directly in the terminal. Ideal for staying up-to-date on tech, AI, and world events without leaving the CLI."
 metadata:
-  version: 1.0.0
+  version: 1.0.3
   agent:
     type: tool
     runtime: node
@@ -11,10 +11,10 @@ metadata:
   openclaw:
     emoji: "\U0001F4F0"
     priority: 80
+    optionalEnv: ['GITHUB_TOKEN']
     requires:
       bins:
         - node
-        - curl
     intents:
       - news_search
       - trending_repos
@@ -40,7 +40,7 @@ Fetch and display real-time news from multiple sources directly in the terminal.
 Run the fetch script to get latest news:
 
 ```bash
-node /Users/yechen/personal/cc/fomo-news/skills/fomo-news/fetch.mjs <category> [--limit <n>]
+node scripts/fetch.mjs <category> [--limit <n>]
 ```
 
 **Categories:** `all`, `github`, `social`, `tech`, `ai`, `economics`, `politics`
@@ -50,7 +50,7 @@ node /Users/yechen/personal/cc/fomo-news/skills/fomo-news/fetch.mjs <category> [
 The tool can make trial without any API keys. For enhanced results, configure optional APIs:
 
 ```
-node skills/fomo-news/fetch.mjs FOMO_API_KEY "your-key"
+node scripts/fetch.mjs FOMO_API_KEY "your-key"
 ```
 
 ## Core Capabilities
@@ -59,6 +59,7 @@ node skills/fomo-news/fetch.mjs FOMO_API_KEY "your-key"
 Fetches top trending repositories from the past 7 days across general, AI, and LLM topics.
 - Shows: repo name, description, stars, forks, language, topics
 - Source: GitHub Search API
+- Optional: set GITHUB_TOKEN if higher rate limits required
 
 ### 2. Social Posts (`social`)
 Tracks 20+ influential tech/AI figures via Google News RSS feeds.

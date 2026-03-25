@@ -72,16 +72,16 @@ No install required. Just run it:
 
 ```bash
 # Everything — GitHub + Social + News
-node skills/fomo-news/fetch.mjs all
+node skills/fomo-news/scripts/fetch.mjs all
 
 # Just GitHub trending
-node skills/fomo-news/fetch.mjs github
+node skills/fomo-news/scripts/fetch.mjs github
 
 # Just AI news
-node skills/fomo-news/fetch.mjs ai --limit 5
+node skills/fomo-news/scripts/fetch.mjs ai --limit 5
 
 # Machine-readable output
-node skills/fomo-news/fetch.mjs tech --json
+node skills/fomo-news/scripts/fetch.mjs tech --json
 ```
 
 ## Categories
@@ -115,19 +115,19 @@ The social feed watches news coverage of key figures in tech and AI:
 
 ```bash
 # Morning briefing — everything at a glance
-node skills/fomo-news/fetch.mjs all --limit 5
+node skills/fomo-news/scripts/fetch.mjs all --limit 5
 
 # What's hot on GitHub this week?
-node skills/fomo-news/fetch.mjs github --limit 20
+node skills/fomo-news/scripts/fetch.mjs github --limit 20
 
 # AI-specific news only
-node skills/fomo-news/fetch.mjs ai
+node skills/fomo-news/scripts/fetch.mjs ai
 
 # Market & economics headlines
-node skills/fomo-news/fetch.mjs economics --limit 10
+node skills/fomo-news/scripts/fetch.mjs economics --limit 10
 
 # Pipe JSON into jq for custom filtering
-node skills/fomo-news/fetch.mjs tech --json | jq '.[0].data[:3]'
+node skills/fomo-news/scripts/fetch.mjs tech --json | jq '.[0].data[:3]'
 ```
 
 ### Inside Claude Code / OpenClaw
