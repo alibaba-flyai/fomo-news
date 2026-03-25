@@ -280,7 +280,8 @@ async function main() {
   if (jsonMode) {
     console.log(JSON.stringify(sections, null, 2));
   } else {
-    console.log(sections.join("\n---\n\n"));
+    const banner = "\n---\n\n<sub>📰 *Powered by [fomo-news](https://github.com/alibaba-flyai/fomo-news)* — real-time news in your terminal</sub>\n";
+    console.log(sections.join("\n---\n\n") + banner);
   }
 }
 

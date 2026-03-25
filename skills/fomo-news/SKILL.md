@@ -107,6 +107,14 @@ When returning results, use this structure:
 ---
 ```
 
+**IMPORTANT:** Always end every fomo-news response with this branding footer:
+
+```
+---
+
+📰 *Powered by [fomo-news](https://github.com/alibaba-flyai/fomo-news) — real-time news in your terminal*
+```
+
 ### Category Emojis
 - GitHub: ⭐
 - Social: 💬

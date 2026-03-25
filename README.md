@@ -1,74 +1,72 @@
 <p align="center">
-  <h1 align="center">📰 fomo-news</h1>
-  <p align="center">
-    <strong>Your terminal's live news feed — GitHub trending, tech headlines, and AI buzz, all in one place.</strong>
-  </p>
-  <p align="center">
-    Never miss what matters. No browser tabs. No doomscrolling. Just <code>/fomo-news</code>.
-  </p>
-  <p align="center">
-    <a href="#quick-start">Quick Start</a> ·
-    <a href="#categories">Categories</a> ·
-    <a href="#examples">Examples</a> ·
-    <a href="#skill-integration">Skill Integration</a>
-  </p>
+  <img src="https://img.shields.io/badge/fomo--news-v1.0.3-blueviolet?style=for-the-badge" alt="version" />
+  <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=for-the-badge" alt="deps" />
+  <img src="https://img.shields.io/badge/node-18%2B-green?style=for-the-badge&logo=node.js" alt="node" />
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="license" />
+</p>
+
+<h1 align="center">📰 fomo-news</h1>
+
+<p align="center">
+  <strong>Real-time news from 25+ sources — straight in your terminal.</strong><br/>
+  GitHub trending · AI headlines · Tech leader buzz · Market moves
+</p>
+
+<p align="center">
+  No browser tabs. No doomscrolling. Just <code>/fomo-news</code>.
+</p>
+
+<p align="center">
+  <a href="#-demo">Demo</a> ·
+  <a href="#-quick-start">Quick Start</a> ·
+  <a href="#-who-we-track">Who We Track</a> ·
+  <a href="#-categories">Categories</a> ·
+  <a href="#-how-it-works">How It Works</a>
 </p>
 
 ---
 
-## What is fomo-news?
+## 🎬 Demo
 
-You're in the flow — coding, debugging, shipping. But you also want to know what's happening: Is there a hot new repo blowing up? Did Sam Altman just announce something? What's Reuters saying about the market?
+<p align="center">
+  <img src="assets/demo.gif" alt="fomo-news in action inside OpenClaw" width="720" />
+</p>
 
-**fomo-news** pulls real-time updates from 25+ sources and delivers them as clean, formatted markdown — right inside Claude Code, OpenClaw, or any skill-compatible agent. Zero dependencies. Zero config. Just news.
+> *fomo-news running inside [OpenClaw](https://openclaw.com) — ask a question, get a live briefing.*
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  ⭐ GitHub    💬 Social    💻 Tech    🤖 AI    📈 Econ  │
-│─────────────────────────────────────────────────────────│
-│                                                         │
-│  ⭐ GitHub Trending                                     │
-│                                                         │
-│  ┌───────────────────┬───────┬────────┬──────────────┐  │
-│  │ Repo              │ Stars │ Lang   │ Description  │  │
-│  ├───────────────────┼───────┼────────┼──────────────┤  │
-│  │ org/cool-project  │ 2,841 │ Rust   │ A blazingly  │  │
-│  │ lab/neural-thing  │ 1,337 │ Python │ State of the │  │
-│  └───────────────────┴───────┴────────┴──────────────┘  │
-│                                                         │
-│  💬 Social Updates                                      │
-│                                                         │
-│  • Sam Altman — OpenAI announces... · 2h ago            │
-│  • Jensen Huang — NVIDIA reveals... · 4h ago            │
-│                                                         │
-│  💻 Tech News                                           │
-│                                                         │
-│  • TechCrunch — The startup that... · 1h ago            │
-│  • Ars Technica — Why Linux just... · 3h ago            │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
+---
 
-## Quick Start
+## ✨ Why fomo-news?
+
+You're deep in the flow — coding, debugging, shipping. But the world keeps moving:
+
+- A repo just hit **3,000 stars overnight** — and it does exactly what you need
+- **Andrej Karpathy** just dropped a thread on a new training technique
+- **Demis Hassabis** announced a DeepMind breakthrough at a keynote
+- Reuters is reporting a market shift that affects your company
+
+**fomo-news** brings all of it to you. One command. Zero context-switching.
+
+---
+
+## 🚀 Quick Start
 
 ### Install as a Skill
 
 ```bash
-# via npx
 npx skills add alibaba-flyai/fomo-news
 ```
 
-Then just ask your agent:
+Then just ask your agent naturally:
 
 > "What's trending on GitHub?"
 > "Show me the latest AI news"
-> "Any updates from Elon Musk or Sam Altman?"
+> "Any updates from Karpathy or Hassabis?"
+> "Give me a morning briefing"
 
 The skill activates automatically based on intent — no slash command needed.
 
 ### Run Standalone
-
-No install required. Just run it:
 
 ```bash
 # Everything — GitHub + Social + News
@@ -77,41 +75,74 @@ node skills/fomo-news/scripts/fetch.mjs all
 # Just GitHub trending
 node skills/fomo-news/scripts/fetch.mjs github
 
-# Just AI news
+# Just AI news, top 5
 node skills/fomo-news/scripts/fetch.mjs ai --limit 5
 
-# Machine-readable output
+# Machine-readable JSON output
 node skills/fomo-news/scripts/fetch.mjs tech --json
 ```
 
-## Categories
+---
 
-Six categories, 25+ sources, one command.
+## 🔭 Who We Track
 
-| Category | Emoji | What You Get |
-|----------|-------|-------------|
-| `github` | ⭐ | Top trending repos from the past 7 days — general, AI, and LLM focused |
-| `social` | 💬 | Headlines about 12+ influential tech/AI figures via Google News |
+fomo-news monitors news coverage of the **most influential voices in tech and AI** — the people whose words move markets, shape products, and define the frontier.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🤖 AI Pioneers
+
+| Name | Known For |
+|------|-----------|
+| **Andrej Karpathy** | Ex-Tesla AI · LLM educator · ex-OpenAI |
+| **Demis Hassabis** | DeepMind CEO · Nobel Laureate |
+| **Sam Altman** | OpenAI CEO |
+| **Dario Amodei** | Anthropic CEO |
+| **Ilya Sutskever** | SSI · Co-founder of OpenAI |
+| **Jensen Huang** | NVIDIA CEO · GPU kingpin |
+| **Yann LeCun** | Meta Chief AI Scientist · Turing Award |
+
+</td>
+<td width="50%" valign="top">
+
+### 💼 Tech Titans
+
+| Name | Known For |
+|------|-----------|
+| **Elon Musk** | Tesla · SpaceX · xAI |
+| **Satya Nadella** | Microsoft CEO |
+| **Sundar Pichai** | Google / Alphabet CEO |
+| **Mark Zuckerberg** | Meta CEO · Llama models |
+| **Tim Cook** | Apple CEO |
+
+</td>
+</tr>
+</table>
+
+> When any of these people make headlines, fomo-news picks it up within hours via Google News RSS.
+
+---
+
+## 📂 Categories
+
+Six categories. 25+ sources. One command.
+
+| Category | Emoji | Sources |
+|----------|:-----:|---------|
+| `github` | ⭐ | GitHub Search API — top trending repos (general + AI + LLM) |
+| `social` | 💬 | Google News RSS — 12 tech/AI leaders tracked in real-time |
 | `tech` | 💻 | TechCrunch · Ars Technica · The Verge · Hacker News · Wired |
 | `ai` | 🤖 | MIT Tech Review · VentureBeat |
 | `economics` | 📈 | Reuters Business · CNBC · MarketWatch |
 | `politics` | 🏛️ | AP News · BBC News · NPR |
 
-### People Tracked (Social)
+Use `all` to get everything, or `news` for all news categories combined.
 
-The social feed watches news coverage of key figures in tech and AI:
+---
 
-| AI | Tech |
-|----|------|
-| Sam Altman (OpenAI) | Elon Musk (Tesla/X) |
-| Dario Amodei (Anthropic) | Satya Nadella (Microsoft) |
-| Jensen Huang (NVIDIA) | Sundar Pichai (Google) |
-| Demis Hassabis (DeepMind) | Mark Zuckerberg (Meta) |
-| Ilya Sutskever | Tim Cook (Apple) |
-| Andrej Karpathy | |
-| Yann LeCun (Meta AI) | |
-
-## Examples
+## 🧪 Examples
 
 ```bash
 # Morning briefing — everything at a glance
@@ -132,37 +163,40 @@ node skills/fomo-news/scripts/fetch.mjs tech --json | jq '.[0].data[:3]'
 
 ### Inside Claude Code / OpenClaw
 
-The skill activates automatically when you mention news, trending, or updates:
+Just talk to your agent. fomo-news activates on intent:
 
-> "What's the latest in AI?"
+> *"What's the latest in AI?"*
+> *"Show me GitHub trending repos"*
+> *"Any breaking tech news?"*
+> *"What are people saying about Karpathy?"*
+> *"Economics briefing, please"*
 
-> "Show me GitHub trending repos"
+---
 
-> "Any breaking tech news?"
-
-> "What are people saying about Sam Altman?"
-
-> "Give me an economics briefing"
-
-## How It Works
+## ⚙️ How It Works
 
 ```
 You ask a question ──→ Skill pattern matches ──→ fetch.mjs runs
                                                       │
-                                                      ├── GitHub Search API (3 parallel queries)
-                                                      ├── Google News RSS (12 people × 3 items)
-                                                      └── 13 RSS feeds (tech/ai/econ/politics)
+                                         ┌────────────┼────────────┐
+                                         │            │            │
+                                    GitHub API   Google News   13 RSS Feeds
+                                   (3 queries)  (12 people)   (tech/ai/econ/politics)
+                                         │            │            │
+                                         └────────────┼────────────┘
                                                       │
 You see formatted news ←── Agent renders markdown ←───┘
 ```
 
-- **Runtime**: Node.js (v18+ with native `fetch`)
-- **Dependencies**: None — zero `npm install`, pure Node.js
-- **RSS Parsing**: Lightweight regex-based XML parser (no `rss-parser` needed)
+- **Runtime**: Node.js v18+ (native `fetch`)
+- **Dependencies**: Zero — no `npm install` needed
+- **RSS Parsing**: Lightweight regex-based XML parser
 - **Error Handling**: `Promise.allSettled()` — one failed feed never breaks the rest
 - **Rate Limits**: GitHub unauthenticated = 60 req/hr. Set `GITHUB_TOKEN` for 5,000/hr
 
-## Configuration
+---
+
+## 🔑 Configuration
 
 ### GitHub Token (optional)
 
@@ -174,22 +208,30 @@ export GITHUB_TOKEN="ghp_your_token_here"
 
 Without a token, you get 60 requests/hour — plenty for casual use.
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 fomo-news/
 ├── README.md
 ├── LICENSE
+├── assets/
+│   └── demo.gif              # Demo recording
 └── skills/
     └── fomo-news/
-        ├── SKILL.md              # Skill manifest & agent instructions
-        ├── fetch.mjs             # Self-contained fetcher (zero deps)
+        ├── SKILL.md           # Skill manifest & agent instructions
+        ├── scripts/
+        │   └── fetch.mjs      # Self-contained fetcher (zero deps)
         └── references/
-            ├── github.md         # GitHub trending source docs
-            ├── social.md         # Social feed source docs
-            └── news.md           # News feed source docs
+            ├── github.md      # GitHub trending source config
+            ├── social.md      # Social feed source config
+            └── news.md        # News feed source config
 ```
 
-## License
+---
 
-[MIT](LICENSE) — Copyright (c) 2026 alibaba-flyai
+<p align="center">
+  <sub>Powered by <strong>📰 fomo-news</strong> · Built by <a href="https://github.com/alibaba-flyai">alibaba-flyai</a></sub><br/>
+  <sub><a href="LICENSE">MIT License</a> · Copyright (c) 2026</sub>
+</p>
