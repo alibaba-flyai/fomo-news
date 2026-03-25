@@ -46,6 +46,13 @@ node /Users/yechen/personal/cc/fomo-news/skills/fomo-news/fetch.mjs <category> [
 **Categories:** `all`, `github`, `social`, `tech`, `ai`, `economics`, `politics`
 **Default limit:** 10 items per source
 
+## Configuration
+The tool can make trial without any API keys. For enhanced results, configure optional APIs:
+
+```
+node skills/fomo-news/fetch.mjs FOMO_API_KEY "your-key"
+```
+
 ## Core Capabilities
 
 ### 1. GitHub Trending (`github`)
