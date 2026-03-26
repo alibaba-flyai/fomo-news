@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/fomo--news-v1.1.0-blueviolet?style=for-the-badge" alt="version" />
+  <img src="https://img.shields.io/badge/fomo--news-v1.1.1-blueviolet?style=for-the-badge" alt="version" />
   <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=for-the-badge" alt="deps" />
   <img src="https://img.shields.io/badge/node-18%2B-green?style=for-the-badge&logo=node.js" alt="node" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="license" />
