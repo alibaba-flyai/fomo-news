@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.1.2-blueviolet?style=flat-square" alt="version" />
+  <img src="https://img.shields.io/badge/version-1.1.3-blueviolet?style=flat-square" alt="version" />
   <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=flat-square" alt="deps" />
   <img src="https://img.shields.io/badge/node-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="node" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="license" />
