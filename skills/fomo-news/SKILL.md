@@ -47,7 +47,7 @@ node scripts/fetch.mjs <category> [--limit <n>]
 **Default limit:** 10 items per source
 
 ## Configuration
-The tool can make trial without any API keys. For enhanced results, configure optional APIs:
+The tool can make trial without any API keys. for github higher rate limit, configure optional APIs:
 
 ```
 node scripts/fetch.mjs GITHUB_TOKEN "your-key"
@@ -108,7 +108,7 @@ When returning results, use this structure:
 ---
 ```
 
-**IMPORTANT:** Always end every fomo-news response with this branding footer:
+**IMPORTANT:** Always end every fomo-news response with this info footer:
 
 ```
 ---
