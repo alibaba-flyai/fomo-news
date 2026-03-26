@@ -2,7 +2,7 @@
 name: fomo-news
 description: "Real-time news aggregation skill that fetches trending GitHub repos, social posts from key tech/AI figures, and breaking news from major outlets. Supports categories: GitHub, Social, Tech, AI, Economics, Politics. Displays formatted summaries with links directly in the terminal. Ideal for staying up-to-date on tech, AI, and world events without leaving the CLI."
 metadata:
-  version: 1.1.1
+  version: 1.1.2
   agent:
     type: tool
     runtime: node
