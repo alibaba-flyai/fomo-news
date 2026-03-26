@@ -34,7 +34,7 @@
   <img src="assets/demo.gif" alt="fomo-news in action inside OpenClaw" width="720" />
 </p>
 
-> *fomo-news running inside [OpenClaw](https://openclaw.com) — ask a question, get a live briefing.*
+> *fomo-news running inside Claude Code — ask a question, get a live briefing.*
 
 ---
 
