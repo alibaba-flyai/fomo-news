@@ -77,16 +77,21 @@ cp -r /tmp/fomo-news ~/.claude/skills/fomo-news
 
 ### ✅ Verify Installation
 
-**OpenClaw** — run the slash command:
+**OpenClaw** — ask your agent naturally:
 
-```
-/fomo-news
-```
+> "What's trending on GitHub?"
+> "Show me the latest AI news"
 
 **Claude Code** — ask your agent naturally:
 
 > "What's trending on GitHub?"
 > "Show me the latest AI news"
+
+Or run the slash command directly:
+
+```
+/fomo-news Show me trending GitHub repos
+```
 
 If you see a formatted news briefing, you're all set!
 
