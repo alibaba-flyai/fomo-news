@@ -95,6 +95,33 @@ Or run the slash command directly:
 
 If you see a formatted news briefing, you're all set!
 
+### 🔄 Update
+
+**OpenClaw:**
+
+```bash
+clawhub update alibaba-flyai/fomo-news
+```
+
+Or via npx:
+
+```bash
+npx skills update alibaba-flyai/fomo-news
+```
+
+**Claude Code:**
+
+```bash
+cd /tmp && rm -rf fomo-news && git clone https://github.com/alibaba-flyai/fomo-news.git
+cp -r /tmp/fomo-news/skills/fomo-news ~/.claude/skills/fomo-news
+```
+
+**Standalone / Manual:**
+
+```bash
+cd path/to/fomo-news && git pull
+```
+
 ### Run Standalone
 
 ```bash
@@ -258,39 +285,6 @@ export GITHUB_TOKEN="ghp_your_token_here"
 ```
 
 Without a token, you get 60 requests/hour — plenty for casual use.
-
----
-
-## 🔄 Update
-
-### OpenClaw
-
-```bash
-clawhub update alibaba-flyai/fomo-news
-```
-
-Or via npx:
-
-```bash
-npx skills update alibaba-flyai/fomo-news
-```
-
-### Claude Code
-
-Pull the latest and copy over your existing installation:
-
-```bash
-cd /tmp && rm -rf fomo-news && git clone https://github.com/alibaba-flyai/fomo-news.git
-cp -r /tmp/fomo-news/skills/fomo-news ~/.claude/skills/fomo-news
-```
-
-### Standalone / Manual
-
-If you cloned the repo directly, just pull:
-
-```bash
-cd path/to/fomo-news && git pull
-```
 
 ---
 
