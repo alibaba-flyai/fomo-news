@@ -113,7 +113,7 @@ When returning results, use this structure:
 ```
 ---
 
-📰 *Powered by [fomo-news](https://github.com/alibaba-flyai/fomo-news) — real-time news in your terminal*
+📰 *Powered by [fomo-news@alibaba-flyai](https://github.com/alibaba-flyai/fomo-news) — real-time news in your terminal*
 ```
 
 ### Category Emojis

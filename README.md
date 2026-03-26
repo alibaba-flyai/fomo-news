@@ -1,27 +1,29 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/fomo--news-v1.1.2-blueviolet?style=for-the-badge" alt="version" />
-  <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=for-the-badge" alt="deps" />
-  <img src="https://img.shields.io/badge/node-18%2B-green?style=for-the-badge&logo=node.js" alt="node" />
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="license" />
-</p>
-
-<h1 align="center">📰 fomo-news</h1>
-
-<p align="center">
-  <strong>Real-time news from 40+ sources — straight in your terminal.</strong><br/>
-  GitHub trending · AI headlines · Tech leader buzz · Market moves
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/%F0%9F%93%B0_fomo--news-Real--time_news_in_your_terminal-blueviolet?style=for-the-badge&labelColor=1a1a2e" />
+    <img src="https://img.shields.io/badge/%F0%9F%93%B0_fomo--news-Real--time_news_in_your_terminal-blueviolet?style=for-the-badge" alt="fomo-news" />
+  </picture>
 </p>
 
 <p align="center">
-  No browser tabs. No doomscrolling. Just <code>/fomo-news</code>.
+  <img src="https://img.shields.io/badge/version-1.1.2-blueviolet?style=flat-square" alt="version" />
+  <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=flat-square" alt="deps" />
+  <img src="https://img.shields.io/badge/node-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="node" />
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="license" />
+  <img src="https://img.shields.io/badge/sources-40%2B-orange?style=flat-square" alt="sources" />
 </p>
 
+<h3 align="center">
+  GitHub trending · AI headlines · Tech leader buzz · Market moves<br/>
+  <sub>No browser tabs. No doomscrolling. Just <code>/fomo-news</code>.</sub>
+</h3>
+
 <p align="center">
-  <a href="#-demo">Demo</a> ·
-  <a href="#-quick-start">Quick Start</a> ·
-  <a href="#-who-we-track">Who We Track</a> ·
-  <a href="#-categories">Categories</a> ·
-  <a href="#-how-it-works">How It Works</a>
+  <a href="#-demo">Demo</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+  <a href="#-quick-start">Quick Start</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+  <a href="#-who-we-track">Who We Track</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+  <a href="#-categories">Categories</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+  <a href="#%EF%B8%8F-how-it-works">How It Works</a>
 </p>
 
 ---
@@ -40,10 +42,12 @@
 
 You're deep in the flow — coding, debugging, shipping. But the world keeps moving:
 
-- A repo just hit **3,000 stars overnight** — and it does exactly what you need
-- **Andrej Karpathy** just dropped a thread on a new training technique
-- **Demis Hassabis** announced a DeepMind breakthrough at a keynote
-- Reuters is reporting a market shift that affects your company
+| | What you're missing |
+|---|---|
+| ⭐ | A repo just hit **3,000 stars overnight** — and it does exactly what you need |
+| 🧠 | **Andrej Karpathy** just dropped a thread on a new training technique |
+| 🔬 | **Demis Hassabis** announced a DeepMind breakthrough at a keynote |
+| 📉 | Reuters is reporting a market shift that affects your company |
 
 **fomo-news** brings all of it to you. One command. Zero context-switching.
 
@@ -77,15 +81,10 @@ cp -r /tmp/fomo-news ~/.claude/skills/fomo-news
 
 ### ✅ Verify Installation
 
-**OpenClaw** — ask your agent naturally:
+**OpenClaw or Claude Code** — just ask your agent naturally:
 
-> "What's trending on GitHub?"
-> "Show me the latest AI news"
-
-**Claude Code** — ask your agent naturally:
-
-> "What's trending on GitHub?"
-> "Show me the latest AI news"
+> *"What's trending on GitHub?"*
+> *"Show me the latest AI news"*
 
 Or run the slash command directly:
 
@@ -97,7 +96,8 @@ If you see a formatted news briefing, you're all set!
 
 ### 🔄 Update
 
-**OpenClaw:**
+<details>
+<summary><strong>OpenClaw</strong></summary>
 
 ```bash
 clawhub update alibaba-flyai/fomo-news
@@ -109,18 +109,26 @@ Or via npx:
 npx skills update alibaba-flyai/fomo-news
 ```
 
-**Claude Code:**
+</details>
+
+<details>
+<summary><strong>Claude Code</strong></summary>
 
 ```bash
 cd /tmp && rm -rf fomo-news && git clone https://github.com/alibaba-flyai/fomo-news.git
 cp -r /tmp/fomo-news/skills/fomo-news ~/.claude/skills/fomo-news
 ```
 
-**Standalone / Manual:**
+</details>
+
+<details>
+<summary><strong>Standalone / Manual</strong></summary>
 
 ```bash
 cd path/to/fomo-news && git pull
 ```
+
+</details>
 
 ### Run Standalone
 
@@ -207,10 +215,10 @@ fomo-news monitors news coverage of the **most influential voices in tech and AI
 
 Six categories. 40+ sources. One command.
 
-| Category | Emoji | Sources |
-|----------|:-----:|---------|
-| `github` | ⭐ | GitHub Search API — 5 parallel queries with progressive time windows (7d/30d/90d) |
-| `social` | 💬 | Google News RSS — 22+ tech/AI leaders + 7 company blogs |
+| Category | Emoji | What You Get |
+|----------|:-----:|--------------|
+| `github` | ⭐ | Breakout repos via GitHub Search API — 5 parallel queries with progressive time windows (7d/30d/90d) |
+| `social` | 💬 | 22+ tech/AI leaders + 7 company blogs via Google News RSS |
 | `tech` | 💻 | TechCrunch · Ars Technica · The Verge · Hacker News · Wired |
 | `ai` | 🤖 | MIT Tech Review AI · VentureBeat AI |
 | `economics` | 📈 | Reuters Business · CNBC · MarketWatch |
@@ -241,7 +249,7 @@ node skills/fomo-news/scripts/fetch.mjs tech --json | jq '.[0].data[:3]'
 
 ### Inside Claude Code / OpenClaw
 
-Just talk to your agent. fomo-news activates on intent:
+Just talk to your agent — fomo-news activates on intent:
 
 > *"What's the latest in AI?"*
 > *"Show me GitHub trending repos"*
@@ -266,11 +274,13 @@ You ask a question ──→ Skill pattern matches ──→ fetch.mjs runs
 You see formatted news ←── Agent renders markdown ←───┘
 ```
 
-- **Runtime**: Node.js v18+ (native `fetch`)
-- **Dependencies**: Zero — no `npm install` needed
-- **RSS Parsing**: Lightweight regex-based XML parser
-- **Error Handling**: `Promise.allSettled()` — one failed feed never breaks the rest
-- **Rate Limits**: GitHub unauthenticated = 60 req/hr. Set `GITHUB_TOKEN` for 5,000/hr
+| | Detail |
+|---|---|
+| **Runtime** | Node.js v18+ (native `fetch`) |
+| **Dependencies** | Zero — no `npm install` needed |
+| **RSS Parsing** | Lightweight regex-based XML parser |
+| **Error Handling** | `Promise.allSettled()` — one failed feed never breaks the rest |
+| **Rate Limits** | GitHub: 60 req/hr unauthenticated · 5,000/hr with `GITHUB_TOKEN` |
 
 ---
 
@@ -310,6 +320,6 @@ fomo-news/
 ---
 
 <p align="center">
-  <sub>Powered by <strong>📰 fomo-news</strong> · Built by <a href="https://github.com/alibaba-flyai">alibaba-flyai</a></sub><br/>
-  <sub><a href="LICENSE">MIT License</a> · Copyright (c) 2026</sub>
+  <strong>📰 Powered by <a href="https://github.com/alibaba-flyai/fomo-news">fomo-news</a>@<a href="https://github.com/alibaba-flyai">alibaba-flyai</a></strong><br/>
+  <sub>Real-time news in your terminal · <a href="LICENSE">MIT License</a></sub>
 </p>
