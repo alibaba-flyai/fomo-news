@@ -50,7 +50,7 @@ node scripts/fetch.mjs <category> [--limit <n>]
 The tool can make trial without any API keys. For enhanced results, configure optional APIs:
 
 ```
-node scripts/fetch.mjs FOMO_API_KEY "your-key"
+node scripts/fetch.mjs GITHUB_TOKEN "your-key"
 ```
 
 ## Core Capabilities
