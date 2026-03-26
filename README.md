@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/fomo--news-v1.0.3-blueviolet?style=for-the-badge" alt="version" />
+  <img src="https://img.shields.io/badge/fomo--news-v1.1.0-blueviolet?style=for-the-badge" alt="version" />
   <img src="https://img.shields.io/badge/dependencies-zero-brightgreen?style=for-the-badge" alt="deps" />
   <img src="https://img.shields.io/badge/node-18%2B-green?style=for-the-badge&logo=node.js" alt="node" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="license" />
@@ -8,7 +8,7 @@
 <h1 align="center">📰 fomo-news</h1>
 
 <p align="center">
-  <strong>Real-time news from 25+ sources — straight in your terminal.</strong><br/>
+  <strong>Real-time news from 40+ sources — straight in your terminal.</strong><br/>
   GitHub trending · AI headlines · Tech leader buzz · Market moves
 </p>
 
@@ -125,47 +125,69 @@ fomo-news monitors news coverage of the **most influential voices in tech and AI
 
 | Name | Known For |
 |------|-----------|
-| **Andrej Karpathy** | Ex-Tesla AI · LLM educator · ex-OpenAI |
-| **Demis Hassabis** | DeepMind CEO · Nobel Laureate |
 | **Sam Altman** | OpenAI CEO |
 | **Dario Amodei** | Anthropic CEO |
-| **Ilya Sutskever** | SSI · Co-founder of OpenAI |
-| **Jensen Huang** | NVIDIA CEO · GPU kingpin |
+| **Demis Hassabis** | DeepMind CEO · Nobel Laureate |
 | **Yann LeCun** | Meta Chief AI Scientist · Turing Award |
+| **Ilya Sutskever** | SSI · Co-founder of OpenAI |
+| **Andrej Karpathy** | Ex-Tesla AI · LLM educator · ex-OpenAI |
+| **Arthur Mensch** | Mistral AI CEO |
+| **Geoffrey Hinton** | Godfather of AI · Turing Award |
+| **Fei-Fei Li** | Stanford HAI · ImageNet creator |
+| **Andrew Ng** | DeepLearning.AI · Coursera |
+| **Emad Mostaque** | Stability AI founder |
 
 </td>
 <td width="50%" valign="top">
 
-### 💼 Tech Titans
+### 💼 Tech Titans & Leaders
 
 | Name | Known For |
 |------|-----------|
 | **Elon Musk** | Tesla · SpaceX · xAI |
+| **Jensen Huang** | NVIDIA CEO · GPU kingpin |
 | **Satya Nadella** | Microsoft CEO |
 | **Sundar Pichai** | Google / Alphabet CEO |
 | **Mark Zuckerberg** | Meta CEO · Llama models |
 | **Tim Cook** | Apple CEO |
+| **Andy Jassy** | Amazon / AWS CEO |
+| **Lisa Su** | AMD CEO |
+| **Marc Andreessen** | a16z · Tech investor |
+| **Vinod Khosla** | Khosla Ventures · AI investor |
+| **Donald Trump** | US President · Tech/AI policy |
 
 </td>
 </tr>
 </table>
 
-> When any of these people make headlines, fomo-news picks it up within hours via Google News RSS.
+### 📝 Company Blogs
+
+| Source | Category |
+|--------|----------|
+| **OpenAI Blog** | AI |
+| **Anthropic Blog** | AI |
+| **Google AI Blog** | AI |
+| **Microsoft AI Blog** | AI |
+| **Meta AI Blog** | AI |
+| **NVIDIA Blog** | Tech |
+| **Sam Altman's Blog** | AI |
+
+> When any of these people make headlines or these blogs publish, fomo-news picks it up within hours via Google News RSS and direct RSS feeds.
 
 ---
 
 ## 📂 Categories
 
-Six categories. 25+ sources. One command.
+Six categories. 40+ sources. One command.
 
 | Category | Emoji | Sources |
 |----------|:-----:|---------|
-| `github` | ⭐ | GitHub Search API — top trending repos (general + AI + LLM) |
-| `social` | 💬 | Google News RSS — 12 tech/AI leaders tracked in real-time |
+| `github` | ⭐ | GitHub Search API — 5 parallel queries with progressive time windows (7d/30d/90d) |
+| `social` | 💬 | Google News RSS — 22+ tech/AI leaders + 7 company blogs |
 | `tech` | 💻 | TechCrunch · Ars Technica · The Verge · Hacker News · Wired |
-| `ai` | 🤖 | MIT Tech Review · VentureBeat |
+| `ai` | 🤖 | MIT Tech Review AI · VentureBeat AI |
 | `economics` | 📈 | Reuters Business · CNBC · MarketWatch |
-| `politics` | 🏛️ | AP News · BBC News · NPR |
+| `politics` | 🏛️ | Reuters World · AP News · BBC News · NPR |
 
 Use `all` to get everything, or `news` for all news categories combined.
 
@@ -209,8 +231,8 @@ You ask a question ──→ Skill pattern matches ──→ fetch.mjs runs
                                                       │
                                          ┌────────────┼────────────┐
                                          │            │            │
-                                    GitHub API   Google News   13 RSS Feeds
-                                   (3 queries)  (12 people)   (tech/ai/econ/politics)
+                                    GitHub API   Google News   14 RSS Feeds
+                                   (5 queries)  (29 sources)  (tech/ai/econ/politics)
                                          │            │            │
                                          └────────────┼────────────┘
                                                       │
@@ -236,6 +258,39 @@ export GITHUB_TOKEN="ghp_your_token_here"
 ```
 
 Without a token, you get 60 requests/hour — plenty for casual use.
+
+---
+
+## 🔄 Update
+
+### OpenClaw
+
+```bash
+clawhub update alibaba-flyai/fomo-news
+```
+
+Or via npx:
+
+```bash
+npx skills update alibaba-flyai/fomo-news
+```
+
+### Claude Code
+
+Pull the latest and copy over your existing installation:
+
+```bash
+cd /tmp && rm -rf fomo-news && git clone https://github.com/alibaba-flyai/fomo-news.git
+cp -r /tmp/fomo-news/skills/fomo-news ~/.claude/skills/fomo-news
+```
+
+### Standalone / Manual
+
+If you cloned the repo directly, just pull:
+
+```bash
+cd path/to/fomo-news && git pull
+```
 
 ---
 

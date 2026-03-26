@@ -20,14 +20,28 @@ if (!CATEGORIES.includes(category)) {
 }
 
 // --- GitHub Trending ---
-const GITHUB_QUERIES = [
-  { q: "stars:>50 created:>{weekAgo}", sort: "stars", per_page: 15, label: "trending" },
-  { q: "topic:ai stars:>20 created:>{weekAgo}", sort: "stars", per_page: 10, label: "ai" },
-  { q: "topic:llm stars:>10 created:>{weekAgo}", sort: "stars", per_page: 10, label: "llm" },
-];
+function daysAgo(n) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().split("T")[0];
+}
+
+function getGitHubQueries() {
+  return [
+    // Fast risers: created in last 7 days, sorted by stars (truly new & hot)
+    `created:>${daysAgo(7)}&sort=stars&order=desc&per_page=20`,
+    // Growing fast: created in last 30 days, already 100+ stars
+    `created:>${daysAgo(30)}+stars:>100&sort=stars&order=desc&per_page=20`,
+    // Breakout projects: created in last 90 days, 500+ stars
+    `created:>${daysAgo(90)}+stars:>500&sort=stars&order=desc&per_page=15`,
+    // AI fast risers: created in last 30 days
+    `topic:ai+created:>${daysAgo(30)}+stars:>50&sort=stars&order=desc&per_page=15`,
+    // LLM fast risers: created in last 30 days
+    `topic:llm+created:>${daysAgo(30)}+stars:>50&sort=stars&order=desc&per_page=15`,
+  ];
+}
 
 async function fetchGitHub(max) {
-  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split("T")[0];
   const headers = { "Accept": "application/vnd.github.v3+json", "User-Agent": "fomo-news/1.0" };
   if (process.env.GITHUB_TOKEN) headers["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
 
@@ -35,9 +49,8 @@ async function fetchGitHub(max) {
   const repos = [];
 
   const results = await Promise.allSettled(
-    GITHUB_QUERIES.map(async ({ q, sort, per_page }) => {
-      const query = q.replace(/{weekAgo}/g, weekAgo);
-      const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=${sort}&order=desc&per_page=${per_page}`;
+    getGitHubQueries().map(async (q) => {
+      const url = `https://api.github.com/search/repositories?q=${q}`;
       const res = await fetch(url, { headers });
       if (!res.ok) throw new Error(`GitHub API ${res.status}`);
       return (await res.json()).items || [];
@@ -63,7 +76,7 @@ async function fetchGitHub(max) {
   }
 
   repos.sort((a, b) => b.stars - a.stars);
-  return repos.slice(0, max);
+  return repos.slice(0, max || 50);
 }
 
 // --- RSS Feed Parser (lightweight, no deps) ---
@@ -81,7 +94,7 @@ function parseRSSItems(xml, maxItems = 10) {
       title: get("title").replace(/<[^>]*>/g, ""),
       link: get("link"),
       pubDate: get("pubDate"),
-      snippet: get("description").replace(/<[^>]*>/g, "").slice(0, 200),
+      snippet: get("description").replace(/<[^>]*>/g, "").slice(0, 300),
     });
   }
   return items;
@@ -103,29 +116,53 @@ async function fetchRSS(url, maxItems = 10) {
 
 // --- Social Feeds ---
 const SOCIAL_SOURCES = [
-  { name: "Sam Altman", handle: "sama", query: "Sam Altman OpenAI when:3d", category: "ai" },
-  { name: "Elon Musk", handle: "elonmusk", query: "Elon Musk when:3d", category: "tech" },
-  { name: "Jensen Huang", handle: "nvidia", query: "Jensen Huang NVIDIA when:3d", category: "ai" },
-  { name: "Dario Amodei", handle: "dabornico", query: "Dario Amodei Anthropic when:3d", category: "ai" },
-  { name: "Satya Nadella", handle: "satyanadella", query: "Satya Nadella Microsoft when:3d", category: "tech" },
-  { name: "Sundar Pichai", handle: "sundarpichai", query: "Sundar Pichai Google when:3d", category: "tech" },
-  { name: "Mark Zuckerberg", handle: "zuck", query: "Mark Zuckerberg Meta when:3d", category: "tech" },
-  { name: "Tim Cook", handle: "timcook", query: "Tim Cook Apple when:3d", category: "tech" },
-  { name: "Demis Hassabis", handle: "demabornico", query: "Demis Hassabis DeepMind when:3d", category: "ai" },
-  { name: "Ilya Sutskever", handle: "ilyasut", query: "Ilya Sutskever when:3d", category: "ai" },
-  { name: "Andrej Karpathy", handle: "karpathy", query: "Andrej Karpathy when:3d", category: "ai" },
-  { name: "Yann LeCun", handle: "ylecun", query: "Yann LeCun when:3d", category: "ai" },
+  // === Influential People — Google News RSS ===
+  { name: "Sam Altman", handle: "@sama", url: "https://news.google.com/rss/search?q=%22Sam+Altman%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Elon Musk", handle: "@elonmusk", url: "https://news.google.com/rss/search?q=%22Elon+Musk%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Donald Trump", handle: "@realDonaldTrump", url: "https://news.google.com/rss/search?q=%22Donald+Trump%22+tech+OR+AI+OR+economy+when:3d&hl=en-US&gl=US&ceid=US:en", category: "politics" },
+  { name: "Jensen Huang", handle: "@nvidia", url: "https://news.google.com/rss/search?q=%22Jensen+Huang%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Dario Amodei", handle: "@DarioAmodei", url: "https://news.google.com/rss/search?q=%22Dario+Amodei%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Satya Nadella", handle: "@satyanadella", url: "https://news.google.com/rss/search?q=%22Satya+Nadella%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Sundar Pichai", handle: "@sundarpichai", url: "https://news.google.com/rss/search?q=%22Sundar+Pichai%22+AI+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Mark Zuckerberg", handle: "@finkd", url: "https://news.google.com/rss/search?q=%22Mark+Zuckerberg%22+AI+OR+Meta+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  // === AI Lab Leaders ===
+  { name: "Demis Hassabis", handle: "@demishassabis", url: "https://news.google.com/rss/search?q=%22Demis+Hassabis%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Yann LeCun", handle: "@ylecun", url: "https://news.google.com/rss/search?q=%22Yann+LeCun%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Ilya Sutskever", handle: "@ilyasut", url: "https://news.google.com/rss/search?q=%22Ilya+Sutskever%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Andrej Karpathy", handle: "@karpathy", url: "https://news.google.com/rss/search?q=%22Andrej+Karpathy%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Arthur Mensch", handle: "@arthurmensch", url: "https://news.google.com/rss/search?q=%22Arthur+Mensch%22+OR+%22Mistral+AI%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  // === Tech CEOs ===
+  { name: "Tim Cook", handle: "@tim_cook", url: "https://news.google.com/rss/search?q=%22Tim+Cook%22+AI+OR+Apple+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Andy Jassy", handle: "@ajassy", url: "https://news.google.com/rss/search?q=%22Andy+Jassy%22+AI+OR+AWS+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Lisa Su", handle: "@LisaSu", url: "https://news.google.com/rss/search?q=%22Lisa+Su%22+AMD+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  // === AI Researchers & Thought Leaders ===
+  { name: "Geoffrey Hinton", handle: "@geoffreyhinton", url: "https://news.google.com/rss/search?q=%22Geoffrey+Hinton%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Fei-Fei Li", handle: "@drfeifei", url: "https://news.google.com/rss/search?q=%22Fei-Fei+Li%22+AI+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Andrew Ng", handle: "@AndrewYNg", url: "https://news.google.com/rss/search?q=%22Andrew+Ng%22+AI+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  { name: "Emad Mostaque", handle: "@EMostaque", url: "https://news.google.com/rss/search?q=%22Emad+Mostaque%22+when:3d&hl=en-US&gl=US&ceid=US:en", category: "ai" },
+  // === AI Investors ===
+  { name: "Marc Andreessen", handle: "@pmarca", url: "https://news.google.com/rss/search?q=%22Marc+Andreessen%22+AI+OR+tech+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  { name: "Vinod Khosla", handle: "@vkhosla", url: "https://news.google.com/rss/search?q=%22Vinod+Khosla%22+AI+OR+tech+when:3d&hl=en-US&gl=US&ceid=US:en", category: "tech" },
+  // === Personal blogs & newsletters ===
+  { name: "Sam Altman", handle: "@sama", url: "https://blog.samaltman.com/feed", category: "ai", isBlog: true },
+  // === Company official blogs ===
+  { name: "OpenAI", handle: "@OpenAI", url: "https://openai.com/blog/rss.xml", category: "ai", isBlog: true },
+  { name: "Anthropic", handle: "@AnthropicAI", url: "https://www.anthropic.com/rss.xml", category: "ai", isBlog: true },
+  { name: "NVIDIA Blog", handle: "@NVIDIA", url: "https://blogs.nvidia.com/feed/", category: "tech", isBlog: true },
+  { name: "Google AI", handle: "@GoogleAI", url: "https://blog.google/technology/ai/rss/", category: "ai", isBlog: true },
+  { name: "Microsoft AI", handle: "@Microsoft", url: "https://blogs.microsoft.com/ai/feed/", category: "ai", isBlog: true },
+  { name: "Meta AI", handle: "@MetaAI", url: "https://ai.meta.com/blog/rss/", category: "ai", isBlog: true },
 ];
 
 async function fetchSocial(max) {
   const results = await Promise.allSettled(
     SOCIAL_SOURCES.map(async (src) => {
-      const url = `https://news.google.com/rss/search?q=${encodeURIComponent(src.query)}&hl=en-US&gl=US&ceid=US:en`;
-      const items = await fetchRSS(url, 3);
+      const items = await fetchRSS(src.url, 8);
       return items.map((item) => ({
         author: src.name,
         handle: src.handle,
         category: src.category,
+        platform: src.isBlog ? "blog" : "rss",
         title: item.title,
         link: item.link,
         pubDate: item.pubDate,
@@ -144,18 +181,23 @@ async function fetchSocial(max) {
 
 // --- News Feeds ---
 const NEWS_SOURCES = [
+  // Tech & AI
   { name: "TechCrunch", url: "https://techcrunch.com/feed/", category: "tech" },
   { name: "Ars Technica", url: "https://feeds.arstechnica.com/arstechnica/index", category: "tech" },
   { name: "The Verge", url: "https://www.theverge.com/rss/index.xml", category: "tech" },
   { name: "Hacker News", url: "https://hnrss.org/frontpage", category: "tech" },
   { name: "Wired", url: "https://www.wired.com/feed/rss", category: "tech" },
-  { name: "MIT Tech Review", url: "https://www.technologyreview.com/feed/", category: "ai" },
-  { name: "VentureBeat", url: "https://venturebeat.com/feed/", category: "ai" },
-  { name: "Reuters Business", url: "https://feeds.reuters.com/reuters/businessNews", category: "economics" },
+  // AI specific
+  { name: "MIT Tech Review AI", url: "https://www.technologyreview.com/feed/", category: "ai" },
+  { name: "VentureBeat AI", url: "https://venturebeat.com/feed/", category: "ai" },
+  // Economics
+  { name: "Reuters Business", url: "https://www.rss.app/feeds/v1.1/tsYGKBcfOkSPYTXh.xml", category: "economics" },
   { name: "CNBC", url: "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114", category: "economics" },
-  { name: "MarketWatch", url: "https://feeds.marketwatch.com/marketwatch/topstories/", category: "economics" },
-  { name: "AP News", url: "https://rsshub.app/apnews/topics/apf-topnews", category: "politics" },
-  { name: "BBC News", url: "https://feeds.bbci.co.uk/news/world/rss.xml", category: "politics" },
+  { name: "MarketWatch", url: "https://www.marketwatch.com/rss/topstories", category: "economics" },
+  // Politics
+  { name: "Reuters World", url: "https://www.rss.app/feeds/v1.1/tsMZOAj38SjPLDn3.xml", category: "politics" },
+  { name: "AP News", url: "https://rsshub.app/apnews/topics/politics", category: "politics" },
+  { name: "BBC News", url: "https://feeds.bbci.co.uk/news/rss.xml", category: "politics" },
   { name: "NPR News", url: "https://feeds.npr.org/1001/rss.xml", category: "politics" },
 ];
 
@@ -166,7 +208,7 @@ async function fetchNews(categories, max) {
 
   const results = await Promise.allSettled(
     sources.map(async (src) => {
-      const items = await fetchRSS(src.url, 5);
+      const items = await fetchRSS(src.url, 10);
       return items.map((item) => ({
         source: src.name,
         category: src.category,
