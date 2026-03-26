@@ -51,20 +51,44 @@ You're deep in the flow — coding, debugging, shipping. But the world keeps mov
 
 ## 🚀 Quick Start
 
-### Install as a Skill
+### Option A — OpenClaw
+
+**Via clawhub (recommended):**
+
+```bash
+clawhub install alibaba-flyai/fomo-news
+```
+
+**Via npx:**
 
 ```bash
 npx skills add alibaba-flyai/fomo-news
 ```
 
-Then just ask your agent naturally:
+### Option B — Claude Code
+
+Clone the repo and copy it into your Claude Code skills directory:
+
+```bash
+git clone https://github.com/alibaba-flyai/fomo-news.git /tmp/fomo-news
+mkdir -p ~/.claude/skills/
+cp -r /tmp/fomo-news ~/.claude/skills/fomo-news
+```
+
+### ✅ Verify Installation
+
+**OpenClaw** — run the slash command:
+
+```
+/fomo-news
+```
+
+**Claude Code** — ask your agent naturally:
 
 > "What's trending on GitHub?"
 > "Show me the latest AI news"
-> "Any updates from Karpathy or Hassabis?"
-> "Give me a morning briefing"
 
-The skill activates automatically based on intent — no slash command needed.
+If you see a formatted news briefing, you're all set!
 
 ### Run Standalone
 
